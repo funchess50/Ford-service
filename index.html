@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Schedule Service &amp; Oil Change | Ed Corley Ford | Henry Voice Agent</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,600;0,700;0,800;1,400&amp;family=Barlow+Condensed:wght@700;800;900&amp;display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;margin:0;padding:0;overflow-x:hidden;overflow-y:auto;min-height:100%;}
+body{font-family:'Barlow',sans-serif;color:#222;background:#fff;font-size:14px;}
+
+/* TOP BAR */
+.social-bar{background:#111;padding:7px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;position:relative;width:100%;box-sizing:border-box;}
+.social-icons{display:flex;gap:6px;position:absolute;left:50%;transform:translateX(-50%);}
+.social-icon{width:28px;height:28px;border-radius:4px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.si-fb{background:#1877f2;}.si-tw{background:#000;}.si-yt{background:#ee3124;}
+.social-right{display:flex;gap:18px;align-items:center;font-size:11px;color:#bbb;margin-left:auto;}
+.social-right a{color:#bbb;text-decoration:none;white-space:nowrap;}
+
+/* NAV */
+nav{background:#fff;border-bottom:3px solid #c8102e;box-shadow:0 2px 6px rgba(0,0,0,0.1);position:sticky;top:0;z-index:200;width:100%;left:0;right:0;box-sizing:border-box;}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 20px;display:flex;align-items:center;height:78px;}
+.nav-logo{display:flex;align-items:center;gap:8px;text-decoration:none;margin-right:28px;flex-shrink:0;}
+.nav-ford-oval{height:52px;width:auto;background:#fff;border-radius:6px;padding:2px;}
+.nav-dealer-logo{height:64px;width:auto;}
+.nav-links{display:flex;list-style:none;align-items:center;flex:1;}
+.nav-links li a{display:flex;align-items:center;padding:8px 13px;font-size:13px;font-weight:600;color:#222;text-decoration:none;white-space:nowrap;transition:color .15s;}
+.nav-links li a:hover{color:#003478;}
+.nav-links li a.home-icon svg{width:18px;height:18px;stroke:#222;fill:none;stroke-width:2;}
+.nav-right{display:flex;gap:16px;align-items:center;margin-left:auto;}
+.nav-right svg{width:20px;height:20px;stroke:#444;fill:none;stroke-width:2;cursor:pointer;}
+
+/* DROPDOWNS */
+.has-dropdown{position:relative;}
+.has-dropdown>a::after{content:'▾';font-size:10px;margin-left:4px;vertical-align:middle;color:#777;}
+.dropdown-menu{display:none;position:absolute;top:100%;left:0;background:#fff;border:1px solid #e0e0e0;border-top:3px solid #003478;box-shadow:0 8px 24px rgba(0,0,0,0.12);border-radius:0 0 6px 6px;padding:20px;min-width:420px;z-index:500;gap:24px;}
+.has-dropdown:hover .dropdown-menu{display:flex;}
+.dropdown-red{background:#c8102e!important;border-top:3px solid #8b0000!important;border-color:#8b0000!important;}
+.dropdown-red .dropdown-heading{color:rgba(255,255,255,0.7)!important;border-bottom-color:rgba(255,255,255,0.2)!important;}
+.dropdown-red a{color:#fff!important;}
+.dropdown-red a:hover{background:rgba(255,255,255,0.15)!important;}
+.dropdown-red .sh-row{color:#fff!important;}
+.dropdown-col{display:flex;flex-direction:column;gap:2px;min-width:160px;}
+.dropdown-heading{font-size:11px;font-weight:700;color:#003478;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;margin-top:4px;padding-bottom:4px;border-bottom:1px solid #eee;}
+.dropdown-menu a{font-size:13px;color:#333;font-weight:500;text-decoration:none;padding:4px 8px;border-radius:3px;transition:background .12s;white-space:nowrap;}
+.dropdown-menu a:hover{background:#f0f4ff;color:#003478;}
+.service-hours{display:flex;flex-direction:column;gap:3px;margin-top:4px;}
+.sh-row{display:flex;justify-content:space-between;gap:16px;font-size:12px;color:#333;padding:2px 0;}
+.sh-bold{font-weight:700;}
+
+/* HERO */
+.service-hero{background:linear-gradient(135deg,#003478 0%,#001f4d 100%);padding:40px 24px;text-align:center;color:#fff;}
+.service-hero h1{font-size:34px;font-weight:900;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;margin-bottom:8px;}
+.service-hero p{font-size:14px;color:rgba(255,255,255,0.8);max-width:580px;margin:0 auto;}
+
+/* TAB BAR */
+.tab-bar{background:#fff;border-bottom:2px solid #e0e0e0;padding:0;display:flex;overflow-x:auto;position:sticky;top:78px;z-index:100;box-shadow:0 2px 6px rgba(0,0,0,0.06);}
+.tab-btn{
+  padding:16px 22px;
+  font-size:13px;font-weight:700;
+  color:#555;background:none;border:none;
+  border-bottom:3px solid transparent;
+  cursor:pointer;white-space:nowrap;
+  font-family:'Barlow',sans-serif;
+  transition:all .15s;
+  margin-bottom:-2px;
+}
+.tab-btn:hover{color:#003478;border-bottom-color:#003478;}
+.tab-btn.active{color:#c8102e;border-bottom-color:#c8102e;background:#fff8f8;}
+
+/* CONTENT PANELS */
+.tab-panel{display:none;max-width:1200px;margin:0 auto;padding:36px 24px 60px;}
+.tab-panel.active{display:block;}
+
+/* SECTION HEADER */
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:28px;padding-bottom:16px;border-bottom:2px solid #003478;}
+.section-icon{width:52px;height:52px;background:#003478;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.section-icon svg{width:26px;height:26px;stroke:white;fill:none;stroke-width:2;}
+.section-title{font-size:26px;font-weight:800;color:#003478;}
+.section-subtitle{font-size:14px;color:#666;margin-top:2px;}
+
+/* FORM */
+.service-form{background:#f8f8f8;border:1px solid #e0e0e0;border-radius:8px;padding:28px;}
+.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-group.full{grid-column:1/-1;}
+.form-label{font-size:12px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;}
+.form-input{border:1px solid #ddd;border-radius:4px;padding:10px 14px;font-size:13px;font-family:'Barlow',sans-serif;outline:none;background:#fff;}
+.form-input:focus{border-color:#003478;}
+.form-submit{background:#c8102e;color:#fff;border:none;padding:13px 28px;border-radius:4px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;margin-top:8px;}
+.form-submit:hover{background:#a00d25;}
+.form-note{font-size:11px;color:#999;margin-top:8px;}
+
+/* CARDS */
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.cards-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;}
+.card{background:#fff;border:1px solid #e0e0e0;border-radius:8px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.card h3{font-size:15px;font-weight:700;color:#111;margin-bottom:8px;}
+.card p{font-size:13px;color:#666;line-height:1.6;margin-bottom:12px;}
+.card-price{font-size:22px;font-weight:800;color:#003478;margin-bottom:4px;}
+.card-orig{font-size:12px;color:#999;text-decoration:line-through;}
+.card-badge{display:inline-block;background:#c8102e;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-bottom:8px;}
+.card-badge.green{background:#2a8a2a;}.card-badge.blue{background:#003478;}
+
+/* INFO */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.info-box{background:#f8f8f8;border-radius:8px;padding:20px;}
+.info-box h3{font-size:15px;font-weight:700;color:#003478;margin-bottom:12px;}
+.info-row{display:flex;justify-content:space-between;font-size:13px;padding:6px 0;border-bottom:1px solid #eee;}
+.info-row:last-child{border:none;}
+.info-row .time.red{color:#c8102e;}
+
+/* SPECIALS */
+.special-card{background:#fff;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+.special-header{padding:16px;}
+.special-header h3{color:#fff;font-size:16px;font-weight:800;}
+.special-header .price{color:rgba(255,255,255,0.9);font-size:26px;font-weight:800;margin-top:4px;}
+.special-body{padding:16px;}
+.special-body ul{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.special-body li{font-size:13px;color:#555;display:flex;align-items:center;gap:6px;}
+.special-body li::before{content:'✓';color:#2a8a2a;font-weight:700;}
+.special-footer{padding:0 16px 16px;}
+.special-cta{width:100%;background:#c8102e;color:#fff;border:none;padding:10px;border-radius:4px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;}
+
+/* HENRY WIDGET */
+.vera-section{background:linear-gradient(135deg,#003478,#001f4d);border-radius:12px;padding:28px 32px;margin-top:36px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;}
+.vera-mic{width:68px;height:68px;background:rgba(255,255,255,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:pulse-vera 2s infinite;}
+@keyframes pulse-vera{0%{box-shadow:0 0 0 0 rgba(255,255,255,0.3)}70%{box-shadow:0 0 0 16px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+.vera-text h3{font-size:18px;font-weight:800;color:#fff;margin-bottom:6px;}
+.vera-text p{font-size:13px;color:rgba(255,255,255,0.8);line-height:1.6;max-width:480px;}
+.vera-btn{margin-left:auto;background:#c8102e;color:#fff;border:none;padding:14px 24px;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;white-space:nowrap;flex-shrink:0;}
+.vera-btn:hover{background:#a00d25;}
+
+/* FOOTER */
+footer{background:#111;color:#999;font-size:11px;padding:24px;width:100%;}
+.footer-inner{max-width:1400px;margin:0 auto;}
+.footer-links{display:flex;gap:20px;margin-bottom:12px;flex-wrap:wrap;}
+.footer-links a{color:#aaa;text-decoration:none;}
+.footer-links a.sms-link{color:#5bc0ff;font-weight:600;}
+
+/* WELCOME POPUP */
+.welcome-overlay{display:none!important;}
+.welcome-popup{background:#fff;border-radius:12px;padding:32px 36px;max-width:460px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.welcome-mic{width:64px;height:64px;background:#003478;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;animation:pulse-vera 2s infinite;}
+.welcome-close{background:#003478;color:#fff;border:none;padding:12px 32px;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;}
+.welcome-skip{display:block;margin-top:10px;font-size:12px;color:#999;cursor:pointer;}
+
+/* HENRY MODAL */
+.vera-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center;}
+.vera-modal-overlay.show{display:flex;}
+.vera-modal{background:#fff;border-radius:10px;width:500px;max-width:95vw;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);}
+.vera-modal-head{background:#003478;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;}
+.vera-modal-head h2{color:#fff;font-size:16px;font-weight:700;}
+.vera-close-btn{background:none;border:none;color:rgba(255,255,255,.7);font-size:22px;cursor:pointer;line-height:1;}
+.vera-modal-body{padding:20px 22px;}
+.vera-chat-box{background:#f5f5f5;border-radius:8px;padding:14px;min-height:160px;max-height:210px;overflow-y:auto;margin-bottom:14px;display:flex;flex-direction:column;gap:10px;}
+.vera-input-row{display:flex;gap:8px;}
+.vera-chat-input{flex:1;border:1px solid #ddd;border-radius:5px;padding:9px 13px;font-size:13px;font-family:'Barlow',sans-serif;outline:none;}
+.vera-chat-input:focus{border-color:#003478;}
+.vera-send-btn{background:#003478;color:#fff;border:none;padding:9px 16px;border-radius:5px;cursor:pointer;font-weight:700;font-family:'Barlow',sans-serif;font-size:13px;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.live-dot{width:7px;height:7px;background:#c8102e;border-radius:50%;animation:blink 1s infinite;display:inline-block;margin-right:6px;}
+
+@media(max-width:900px){
+  .cards-grid,.cards-grid-2{grid-template-columns:1fr;}
+  .form-grid{grid-template-columns:1fr;}
+  .info-grid{grid-template-columns:1fr;}
+  .vera-section{flex-direction:column;}
+  .vera-btn{margin-left:0;width:100%;}
+}
+
+
+/* HENRY VOICE CTA BOOST */
+.henry-hero-cta{margin:26px auto 0;max-width:780px;background:rgba(255,255,255,.12);border:2px solid rgba(255,255,255,.3);border-radius:18px;padding:22px;box-shadow:0 16px 42px rgba(0,0,0,.22);display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;position:relative;overflow:hidden;}
+.henry-hero-cta:before{content:'TALK NOW';position:absolute;top:12px;right:-42px;background:#c8102e;color:#fff;font-size:11px;font-weight:900;letter-spacing:1px;padding:5px 48px;transform:rotate(35deg);}
+.henry-hero-copy h2{font-family:'Barlow Condensed',sans-serif;font-size:34px;line-height:1;font-weight:900;color:#fff;margin-bottom:5px;text-transform:uppercase;}
+.henry-hero-copy p{font-size:15px;color:rgba(255,255,255,.9);max-width:480px;}
+.henry-widget-wrap{display:flex;align-items:center;justify-content:center;min-width:210px;transform:scale(1.18);transform-origin:center;}
+.henry-strip{max-width:1200px;margin:18px auto 0;padding:14px 24px;background:#fff8f8;border:2px solid #c8102e;border-radius:12px;display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 6px 18px rgba(200,16,46,.14);}
+.henry-strip strong{font-size:18px;color:#c8102e;}
+.henry-strip span{font-size:13px;color:#333;}
+.henry-card{background:linear-gradient(135deg,#c8102e 0%,#9b001b 100%);border-radius:14px;padding:22px;margin:22px 0;color:#fff;box-shadow:0 14px 32px rgba(200,16,46,.28);display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;border:3px solid #fff;outline:2px solid #c8102e;}
+.henry-card h3{font-family:'Barlow Condensed',sans-serif;font-size:30px;line-height:1;font-weight:900;margin-bottom:4px;text-transform:uppercase;color:#fff;}
+.henry-card p{font-size:14px;line-height:1.5;color:rgba(255,255,255,.92);max-width:560px;}
+.henry-pill{display:inline-flex;align-items:center;gap:7px;background:#fff;color:#c8102e;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:900;margin-bottom:8px;animation:henryBlink 1.4s infinite;}
+@keyframes henryBlink{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.05);opacity:.82}}
+.henry-floating{position:fixed;right:18px;bottom:18px;z-index:2500;background:#c8102e;color:#fff;border-radius:18px;padding:14px;box-shadow:0 16px 44px rgba(0,0,0,.34);max-width:310px;border:3px solid #fff;}
+.henry-floating-title{font-size:16px;font-weight:900;line-height:1.1;margin-bottom:4px;}
+.henry-floating small{display:block;color:rgba(255,255,255,.84);font-size:11px;margin-bottom:9px;line-height:1.35;}
+.henry-floating-widget{display:flex;justify-content:center;transform:scale(1.08);transform-origin:center;}
+.service-form.compact-typing-form{padding:14px 16px!important;max-width:520px;margin:16px auto;background:#fafafa;border:1px dashed #c9c9c9;opacity:.72;box-shadow:none;}
+.service-form.compact-typing-form:hover{opacity:.95;}
+.service-form.compact-typing-form:before{content:'Prefer typing? Optional backup form';display:block;font-size:11px;font-weight:800;color:#777;text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px;}
+.compact-typing-form h3{font-size:13px!important;margin-bottom:8px!important;color:#666!important;}
+.compact-typing-form .form-grid{gap:8px;}
+.compact-typing-form .form-label{font-size:10px;color:#777;}
+.compact-typing-form .form-input{padding:6px 8px;font-size:11px;border-radius:3px;}
+.compact-typing-form textarea.form-input{rows:2;min-height:42px;}
+.compact-typing-form .form-submit{padding:7px 13px;font-size:11px;background:#777;margin-top:7px;}
+.compact-typing-form .form-note{font-size:10px;color:#999;}
+.vera-section{border:3px solid #fff;outline:2px solid #c8102e;box-shadow:0 14px 34px rgba(0,52,120,.18);}
+.vera-text h3{font-family:'Barlow Condensed',sans-serif;font-size:28px!important;line-height:1;text-transform:uppercase;}
+.vera-btn{font-size:18px!important;padding:18px 28px!important;border-radius:999px!important;text-transform:uppercase;box-shadow:0 8px 20px rgba(200,16,46,.35);animation:henryBlink 1.5s infinite;}
+.special-cta{font-size:15px!important;padding:14px!important;border-radius:999px!important;}
+@media(max-width:700px){.henry-floating{left:10px;right:10px;bottom:10px;max-width:none}.henry-strip{margin-left:12px;margin-right:12px;flex-direction:column;text-align:center}.henry-hero-copy h2{font-size:28px}.henry-card{justify-content:center;text-align:center}.service-form.compact-typing-form{max-width:100%;}}
+
+
+/* HENRY VOICE WIDGET — SECOND PASS CLEANUP */
+.henry-card,.vera-section{cursor:pointer;position:relative;}
+.henry-card:hover,.vera-section:hover{transform:translateY(-2px);transition:transform .18s ease, box-shadow .18s ease;}
+
+
+.henry-direct-note{font-size:12px;font-weight:800;color:rgba(255,255,255,.92);margin-top:8px;text-transform:uppercase;letter-spacing:.4px;}
+.compact-typing-form:before{content:'Prefer typing or hearing impaired? Use this small backup form.'!important;color:#666!important;}
+.form-submit{background:#777!important;}
+.voice-first-banner{background:#fff;border:3px solid #c8102e;border-radius:16px;padding:18px;margin:18px 0 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 10px 28px rgba(200,16,46,.16);}
+.voice-first-banner h3{font-family:'Barlow Condensed',sans-serif;font-size:30px;color:#c8102e;line-height:1;text-transform:uppercase;margin:0 0 4px;}
+.voice-first-banner p{font-size:13px;color:#333;line-height:1.45;margin:0;max-width:620px;}
+.voice-first-banner .henry-widget-wrap{transform:scale(1.08);}
+@media(max-width:700px){.voice-first-banner{flex-direction:column;text-align:center}}
+
+
+
+/* HENRY V3 — CLEAN VOICE CTA BUTTONS + SCROLL FIX */
+.henry-widget-wrap{display:flex;align-items:center;justify-content:center;min-width:260px;transform:none!important;}
+.henry-voice-button,
+.henry-widget-wrap .henry-voice-button{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  background:#fff;color:#c8102e;border:3px solid #fff;
+  padding:16px 26px;border-radius:999px;font-size:16px;font-weight:900;
+  font-family:'Barlow',sans-serif;cursor:pointer;white-space:normal;text-align:center;
+  text-transform:uppercase;letter-spacing:.3px;line-height:1.15;
+  box-shadow:0 8px 24px rgba(0,0,0,.22);
+  min-width:260px;max-width:100%;
+  animation:henryButtonPulse 1.8s infinite;
+}
+.henry-voice-button:hover{background:#fff5f5;transform:scale(1.04);}
+.henry-card .henry-voice-button,.vera-section .henry-voice-button{background:#fff;color:#c8102e;}
+.henry-strip .henry-voice-button{background:#c8102e;color:#fff;border-color:#c8102e;box-shadow:0 8px 22px rgba(200,16,46,.24);}
+.henry-hero-cta .henry-voice-button{background:#c8102e;color:#fff;border-color:#fff;}
+.special-cta,.form-submit{position:relative;z-index:2;}
+@keyframes henryButtonPulse{
+  0%{box-shadow:0 0 0 0 rgba(200,16,46,.55);}
+  70%{box-shadow:0 0 0 14px rgba(200,16,46,0);}
+  100%{box-shadow:0 0 0 0 rgba(200,16,46,0);}
+}
+.henry-floating{right:18px;bottom:18px;max-width:360px;}
+.henry-floating .henry-voice-button{min-width:0;width:100%;font-size:14px;padding:13px 16px;}
+.backup-form-title{font-size:14px;font-weight:900;color:#003478;margin-bottom:6px;text-transform:uppercase;letter-spacing:.4px;}
+.form-note.accessibility-note{font-size:12px;color:#555;font-weight:600;line-height:1.45;margin-bottom:12px;}
+body.modal-open{overflow:auto!important;}
+@media(max-width:700px){
+  .henry-widget-wrap{width:100%;min-width:0;}
+  .henry-voice-button{width:100%;min-width:0;font-size:14px;padding:15px 18px;}
+  .henry-floating{left:10px;right:10px;bottom:10px;max-width:none;}
+}
+
+
+/* V4 — SERVICE PAGE NAV ONLY */
+.service-only-nav{justify-content:flex-end;gap:4px;flex-wrap:wrap;}
+.service-only-nav li a{font-size:13px;font-weight:800;color:#003478;border:1px solid #e5eaf2;border-radius:999px;padding:9px 11px;background:#fff;}
+.service-only-nav li a:hover{background:#fff5f5;color:#c8102e;border-color:#c8102e;}
+@media(max-width:1100px){.nav-inner{height:auto;min-height:78px;padding-top:10px;padding-bottom:10px;align-items:flex-start}.service-only-nav{justify-content:flex-start}.service-only-nav li a{font-size:12px;padding:8px 10px}}
+/* Do not place any custom floating CTA over the ElevenLabs widget; it needs a clear corner to open. */
+.henry-floating{display:none!important;pointer-events:none!important;}
+
+
+
+/* V5 — SINGLE OFFICIAL HENRY WIDGET / MIC PERMISSION FIX */
+.official-henry-widget-zone{
+  max-width:520px;margin:28px auto 34px;padding:18px 20px;border:3px solid #c8102e;border-radius:14px;
+  background:linear-gradient(135deg,#fff5f5,#ffffff 60%,#eef4ff);box-shadow:0 10px 30px rgba(0,0,0,.16);
+  text-align:center;position:relative;z-index:10;
+}
+.official-henry-widget-title{font-size:20px;font-weight:900;color:#003478;margin-bottom:4px;}
+.official-henry-widget-subtitle{font-size:13px;font-weight:700;color:#444;margin-bottom:12px;line-height:1.4;}
+elevenlabs-convai#henryOfficialVoiceWidget{display:block!important;margin:0 auto!important;position:relative!important;z-index:20!important;}
+elevenlabs-convai.henry-widget-highlight{outline:5px solid #c8102e;outline-offset:8px;border-radius:14px;animation:henryWidgetAttention 1.2s ease-in-out infinite;}
+@keyframes henryWidgetAttention{0%,100%{filter:brightness(1)}50%{filter:brightness(1.18)}}
+
+
+.henry-voice-button,.vera-btn,.special-cta,.henry-card,.vera-section{cursor:pointer;}
+.official-henry-widget-zone{scroll-margin-top:150px;}
+
+
+
+/* V7 — TWO-PAGE TEST VERSION: Schedule Service + Oil Change only */
+.tab-bar{justify-content:center;gap:12px;overflow-x:visible;padding:10px 16px;}
+.tab-btn{border:2px solid #e6e6e6;border-radius:999px;margin-bottom:0;background:#fff;min-width:210px;text-align:center;justify-content:center;}
+.tab-btn.active{background:#fff8f8;border-color:#c8102e;}
+.official-henry-widget-zone{margin:34px auto 80px!important;max-width:720px!important;clear:both;}
+.henry-voice-button,.vera-btn,.special-cta{touch-action:manipulation;}
+
+
+/* V8 — NO HIDDEN CTA BUTTONS / CLEAN OFFICIAL WIDGET AREA */
+.official-henry-widget-zone{
+  overflow:visible!important;
+  min-height:165px;
+  padding-bottom:28px!important;
+}
+.official-henry-widget-subtitle{
+  margin-bottom:18px!important;
+}
+elevenlabs-convai#henryOfficialVoiceWidget{
+  min-height:78px!important;
+  width:100%!important;
+  max-width:420px!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  overflow:visible!important;
+  pointer-events:auto!important;
+}
+.henry-voice-button,.vera-btn,.special-cta{
+  pointer-events:auto!important;
+}
+/* Keep old unused popup/chat layers out of the way and non-clickable. */
+.welcome-overlay,.vera-modal-overlay,.henry-floating{
+  display:none!important;
+  pointer-events:none!important;
+}
+
+
+/* V9 Henry widget safety fix: no hidden overlays, no auto-clicking */
+.official-henry-widget{
+  max-width:760px;
+  margin:44px auto 72px;
+  padding:26px;
+  border:2px solid #003478;
+  border-radius:14px;
+  background:#ffffff;
+  text-align:center;
+  position:relative;
+  z-index:5;
+  box-shadow:0 8px 24px rgba(0,52,120,.12);
+}
+.official-henry-widget h2{
+  color:#003478;
+  font-size:24px;
+  font-weight:900;
+  margin-bottom:8px;
+}
+.official-henry-widget p{
+  color:#444;
+  font-size:14px;
+  line-height:1.5;
+  margin-bottom:18px;
+}
+.elevenlabs-widget-box{
+  min-height:96px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  z-index:6;
+  overflow:visible;
+}
+.official-henry-widget button:not(:has(*)),
+.official-henry-widget .hidden,
+.official-henry-widget .overlay,
+.official-henry-widget [aria-hidden="true"]{
+  pointer-events:none !important;
+}
+.henry-widget-highlight{
+  outline:5px solid rgba(200,16,46,.35);
+  box-shadow:0 0 0 10px rgba(200,16,46,.12);
+}
+.henry-cta,
+.vera-cta-button,
+.voice-cta,
+button[onclick="speakToHenry()"]{
+  position:relative;
+  z-index:10;
+  pointer-events:auto;
+}
+
+</style>
+</head>
+<body>
+<!-- TOP BAR -->
+<div class="social-bar">
+<div class="social-icons">
+<div class="social-icon si-fb"><svg fill="white" height="14" viewbox="0 0 24 24" width="14"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></div>
+<div class="social-icon si-tw"><svg height="13" viewbox="0 0 24 24" width="13"><path d="M4 4l16 16M4 20L20 4" fill="none" stroke="white" stroke-linecap="round" stroke-width="2.5"></path></svg></div>
+<div class="social-icon si-yt"><svg fill="white" height="15" viewbox="0 0 24 24" width="15"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.96-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon fill="#ee3124" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg></div>
+</div>
+<div class="social-right">
+<a href="tel:5056586945">📞 Sales: 505-658-6945</a>
+<a href="tel:5056586949">🔧 Service: 505-658-6949</a>
+<a href="tel:5056586931">🔩 Parts: 505-658-6931</a>
+<span style="color:#888;">📍 1870 West Santa Fe Avenue, Grants, NM 87020</span>
+</div>
+</div>
+<!-- NAV -->
+<nav>
+<div class="nav-inner">
+<a class="nav-logo" href="index.html">
+<img alt="Ford" class="nav-ford-oval" src="data:image/png;base64,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"/>
+<img alt="Corley's Grants Ford" class="nav-dealer-logo" src="data:image/webp;base64,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"/>
+</a>
+<ul class="nav-links service-only-nav">
+<li><a href="javascript:void(0)" onclick="showTab('schedule')">📅 Schedule Service</a></li>
+<li><a href="javascript:void(0)" onclick="showTab('center')">🔧 Service Center</a></li>
+<li><a href="javascript:void(0)" onclick="showTab('mobile')">📱 Mobile Service</a></li>
+<li><a href="javascript:void(0)" onclick="showTab('specials')">🏷️ Service Specials</a></li>
+<li><a href="javascript:void(0)" onclick="showTab('pickup')">🚛 Pickup &amp; Delivery</a></li>
+<li><a href="javascript:void(0)" onclick="showTab('oilchange')">🛢️ Oil Change</a></li>
+<li><a href="javascript:void(0)" onclick="showTab('parts')">🔩 Parts</a></li>
+</ul>
+<div class="nav-right">
+<svg viewbox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.35-4.35"></path></svg>
+<svg viewbox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+</div>
+</div>
+</nav>
+<!-- HERO -->
+<div class="service-hero">
+<h1>Ed Corley Ford Service Center</h1>
+<p>Factory-trained technicians, genuine Ford parts, and service you can trust — right here in Grants, NM.</p>
+<div class="henry-hero-cta">
+<div class="henry-hero-copy">
+<h2>Skip the Form. Talk to Henry.</h2>
+<p>Tell Henry what you need, what you drive, and when you want to come in. It feels like calling the service desk — without waiting on hold.</p>
+</div>
+<div class="henry-widget-wrap"><button class="henry-voice-button" onclick="startElevenLabsCall(event)">🎙️ Click Here to Speak to Henry Live 24/7</button></div>
+</div>
+</div>
+<!-- TAB BAR -->
+<div class="tab-bar">
+<button class="tab-btn active" id="tab-schedule" onclick="showTab('schedule')">📅 Schedule Service</button>
+
+
+
+
+<button class="tab-btn" id="tab-oilchange" onclick="showTab('oilchange')">🛢️ Oil Change</button>
+
+</div>
+<div class="henry-strip">
+<div><strong>🎙️ Fastest way to book service:</strong> <span>Click Henry and speak naturally — oil change, brakes, recall, pickup, mobile service, parts, anything.</span></div>
+<div class="henry-widget-wrap"><button class="henry-voice-button" onclick="startElevenLabsCall(event)">🎙️ Click Here to Speak to Henry Live 24/7</button></div>
+</div>
+<!-- ══════════════════════════════════════
+     TAB PANELS
+══════════════════════════════════════ -->
+<!-- SCHEDULE SERVICE -->
+<div class="tab-panel active" id="panel-schedule">
+<div class="section-header">
+<div class="section-icon"><svg viewbox="0 0 24 24"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg></div>
+<div><div class="section-title">Schedule Service</div><div class="section-subtitle">Talk to Henry for fastest booking — typed form is optional</div></div>
+</div>
+<div class="henry-card" onclick="startElevenLabsCall(event)">
+<div>
+<div class="henry-pill">● LIVE VOICE CTA</div>
+<h3>Click Here to Speak to Henry Live 24/7</h3>
+<p>Use the real voice widget here. Tell Henry what you need, what you drive, and when you want service — no long typing form required.</p>
+<div class="henry-direct-note">Tap the ElevenLabs voice widget to start.</div>
+</div>
+<div class="henry-widget-wrap"><button class="henry-voice-button" onclick="startElevenLabsCall(event)">🎙️ Click Here to Speak to Henry Live 24/7</button></div>
+</div>
+<div class="service-form compact-typing-form">
+<div class="form-grid">
+<div class="form-group"><label class="form-label">First Name</label><input class="form-input" placeholder="John" type="text"/></div>
+<div class="form-group"><label class="form-label">Last Name</label><input class="form-input" placeholder="Smith" type="text"/></div>
+<div class="form-group"><label class="form-label">Phone Number</label><input class="form-input" placeholder="(505) 000-0000" type="tel"/></div>
+<div class="form-group"><label class="form-label">Email Address</label><input class="form-input" placeholder="john@email.com" type="email"/></div>
+<div class="form-group"><label class="form-label">Vehicle Year</label><select class="form-input"><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>Older</option></select></div>
+<div class="form-group"><label class="form-label">Vehicle Model</label><select class="form-input"><option>F-150</option><option>Explorer</option><option>Escape</option><option>Mustang</option><option>Bronco</option><option>Maverick</option><option>Expedition</option><option>F-250 Super Duty</option><option>Other</option></select></div>
+<div class="form-group"><label class="form-label">Service Type</label><select class="form-input"><option>Oil Change</option><option>Tire Rotation</option><option>Brake Service</option><option>Multi-Point Inspection</option><option>Engine Diagnostics</option><option>Transmission Service</option><option>AC/Heating Service</option><option>Recall Service</option><option>Other</option></select></div>
+<div class="form-group"><label class="form-label">Preferred Date</label><input class="form-input" type="date"/></div>
+<div class="form-group"><label class="form-label">Preferred Time</label><select class="form-input"><option>7:30 AM</option><option>8:00 AM</option><option>9:00 AM</option><option>10:00 AM</option><option>11:00 AM</option><option>12:00 PM</option><option>1:00 PM</option><option>2:00 PM</option><option>3:00 PM</option><option>4:00 PM</option><option>5:00 PM</option></select></div>
+<div class="form-group"><label class="form-label">Transportation Needed?</label><select class="form-input"><option>No — I'll wait at the dealership</option><option>Yes — Shuttle service</option><option>Yes — Pickup &amp; Delivery</option><option>Yes — Loaner vehicle</option></select></div>
+<div class="form-group full"><label class="form-label">Additional Comments</label><textarea class="form-input" placeholder="Describe any issues or special requests..." rows="3"></textarea></div>
+</div>
+<button class="form-submit" onclick="alert('✅ Appointment request received!\n\nOur team will contact you within 1 business day to confirm.\n\nOr call: (505) 658-6949')">Submit Backup Form</button>
+<div class="form-note">Prefer to type or are hearing impaired? Use this form — or call: <strong>(505) 658-6949</strong> — Mon–Sat 7:30am–6pm</div>
+</div>
+<div class="vera-section" onclick="startElevenLabsCall(event)">
+<div class="vera-mic"><svg fill="none" height="30" stroke="white" stroke-width="2" viewbox="0 0 24 24" width="30"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="23"></line><line x1="8" x2="16" y1="23" y2="23"></line></svg></div>
+<div class="vera-text"><h3>🎙️ Talk to Henry — Fastest Booking</h3><p>Click the button and tell HENRY your vehicle, what service you need, and your preferred time — he'll handle the booking.</p></div>
+<button class="vera-btn" onclick="startElevenLabsCall(event)">CLICK HERE TO SPEAK TO HENRY LIVE 24/7</button>
+<div class="henry-widget-wrap"><button class="henry-voice-button" onclick="startElevenLabsCall(event)">🎙️ Click Here to Speak to Henry Live 24/7</button></div>
+</div>
+</div>
+<!-- SERVICE CENTER -->
+
+<!-- MOBILE SERVICE -->
+
+<!-- SERVICE SPECIALS -->
+
+<!-- PICKUP & DELIVERY -->
+
+<!-- OIL CHANGE -->
+<div class="tab-panel" id="panel-oilchange">
+<div class="section-header">
+<div class="section-icon"><svg viewbox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg></div>
+<div><div class="section-title">Ford Oil Change Service</div><div class="section-subtitle">Fast, affordable, and done right with genuine Ford parts</div></div>
+</div>
+<div class="henry-card" onclick="startElevenLabsCall(event)">
+<div>
+<div class="henry-pill">● LIVE VOICE CTA</div>
+<h3>Click Here to Speak to Henry Live 24/7</h3>
+<p>Use the real voice widget here. Tell Henry what you need, what you drive, and when you want service — no long typing form required.</p>
+<div class="henry-direct-note">Tap the ElevenLabs voice widget to start.</div>
+</div>
+<div class="henry-widget-wrap"><button class="henry-voice-button" onclick="startElevenLabsCall(event)">🎙️ Click Here to Speak to Henry Live 24/7</button></div>
+</div>
+<div class="cards-grid">
+<div class="card">
+<span class="card-badge">CONVENTIONAL</span>
+<div class="card-price">$39.95</div>
+<div class="card-orig">Reg. $49.95</div>
+<h3 style="margin:8px 0;">Conventional Oil Change</h3>
+<p>Ideal for vehicles under 75,000 miles. Includes up to 5 quarts conventional oil, new filter, and multi-point inspection.</p>
+<button onclick="startElevenLabsCall(event)" style="width:100%;background:#003478;color:#fff;border:none;padding:10px;border-radius:4px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px;">🎙️ Speak with HENRY</button>
+</div>
+<div class="card" style="border:2px solid #003478;">
+<span class="card-badge blue">MOST POPULAR</span>
+<div class="card-price">$79.95</div>
+<div class="card-orig">Reg. $89.95</div>
+<h3 style="margin:8px 0;">Full Synthetic Oil Change</h3>
+<p>Recommended for newer Ford models and high-performance engines. Full synthetic oil, OEM filter, and 23-point inspection.</p>
+<button onclick="startElevenLabsCall(event)" style="width:100%;background:#003478;color:#fff;border:none;padding:10px;border-radius:4px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px;">🎙️ Speak with HENRY</button>
+</div>
+<div class="card">
+<span class="card-badge green">ECO BLEND</span>
+<div class="card-price">$59.95</div>
+<div class="card-orig">Reg. $69.95</div>
+<h3 style="margin:8px 0;">Synthetic Blend Oil Change</h3>
+<p>Great for Maverick Hybrid, Explorer, and everyday driving vehicles. A balance of conventional and synthetic.</p>
+<button onclick="startElevenLabsCall(event)" style="width:100%;background:#003478;color:#fff;border:none;padding:10px;border-radius:4px;font-size:13px;font-weight:700;cursor:pointer;margin-top:8px;">🎙️ Speak with HENRY</button>
+</div>
+</div>
+<div class="vera-section" style="margin-top:24px;">
+<div class="vera-mic"><svg fill="none" height="30" stroke="white" stroke-width="2" viewbox="0 0 24 24" width="30"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" x2="12" y1="19" y2="23"></line><line x1="8" x2="16" y1="23" y2="23"></line></svg></div>
+<div class="vera-text"><h3>🎙️ Not sure which oil is right?</h3><p>Ask HENRY — he'll check your vehicle specs, recommend the right oil type, and book your appointment.</p></div>
+<button class="vera-btn" onclick="startElevenLabsCall(event)">CLICK HERE TO SPEAK TO HENRY LIVE 24/7</button>
+<div class="henry-widget-wrap"><button class="henry-voice-button" onclick="startElevenLabsCall(event)">🎙️ Click Here to Speak to Henry Live 24/7</button></div>
+</div>
+</div>
+<!-- PARTS -->
+
+<!-- FOOTER -->
+<footer>
+<div class="footer-inner">
+<div class="footer-links">
+<a href="#">Sitemap</a>
+<a href="#">Privacy</a>
+<a href="#">FordDirect Privacy</a>
+<a href="#">View Additional Disclosures</a>
+<a class="sms-link" href="javascript:void(0)" onclick="openSmsTerms()">SMS Text Messaging Terms &amp; Conditions</a>
+</div>
+<div style="line-height:1.7;color:#666;max-width:900px;">
+      Although every reasonable effort has been made to ensure the accuracy of the information contained on this site, absolute accuracy cannot be guaranteed. All service prices shown are estimates and may vary.<br/><br/>
+      © 2026 Ed Corley Ford Sales Inc.  |  1870 West Santa Fe Avenue, Grants, NM 87020  |  Service: (505) 658-6949
+    </div>
+</div>
+</footer>
+<!-- SMS TERMS -->
+<div id="smsTermsPage" style="display:none;position:fixed;inset:0;background:#f9f9f9;z-index:3000;overflow-y:auto;font-family:'Barlow',sans-serif;">
+<header style="background:#fff;border-bottom:3px solid #c8102e;position:sticky;top:0;z-index:10;">
+<div style="max-width:800px;margin:0 auto;padding:18px 16px;display:flex;justify-content:space-between;align-items:center;">
+<span style="font-weight:800;color:#003478;font-size:1.1rem;text-transform:uppercase;letter-spacing:.05em;">Ed Corley Ford Sales Inc.</span>
+<button onclick="closeSmsTerms()" style="background:#003478;color:#fff;border:none;padding:8px 16px;border-radius:4px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Barlow',sans-serif;">← Back to Site</button>
+</div>
+</header>
+<main style="padding:40px 16px;">
+<div style="max-width:800px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;padding:40px;border-radius:8px;">
+<h1 style="font-size:26px;font-weight:800;color:#003478;border-bottom:2px solid #e5e7eb;padding-bottom:12px;margin-bottom:20px;">SMS Text Messaging Terms &amp; Conditions</h1>
+<div style="background:#f4f7fc;border-left:4px solid #003478;padding:20px;font-size:15px;font-weight:600;color:#1a2a50;border-radius:0 4px 4px 0;margin-bottom:25px;line-height:1.7;">By verbally agreeing to receive communications from Ed Corley Ford, you consent to receive text messages from Ed Corley Ford Sales Inc. regarding vehicle financing pre-qualification. Message and data rates may apply. You may opt out at any time by replying STOP. For questions, contact Ed Corley Ford at (505) 285-4695 or visit <a href="http://edcorleyford.com" style="color:#003478;" target="_blank">edcorleyford.com</a>.</div>
+<h2 style="font-size:18px;font-weight:700;color:#111;margin-top:28px;margin-bottom:12px;">How to Opt-Out</h2>
+<p style="color:#444;line-height:1.7;margin-bottom:16px;">Reply <strong>STOP</strong> to any text message to unsubscribe. You will receive one final confirmation message.</p>
+<h2 style="font-size:18px;font-weight:700;color:#111;margin-top:28px;margin-bottom:12px;">Privacy Policy</h2>
+<p style="color:#444;line-height:1.7;">Your mobile information will not be shared or sold to third parties. Standard message and data rates may apply.</p>
+</div>
+</main>
+</div>
+<!-- WELCOME POPUP -->
+
+<script>
+// ── TAB SWITCHING ──
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  const panel = document.getElementById('panel-' + id);
+  if (panel) panel.classList.add('active');
+  const tab = document.getElementById('tab-' + id);
+  if (tab) tab.classList.add('active');
+  window.scrollTo({top: 200, behavior: 'smooth'});
+}
+
+window.addEventListener('load', function() {
+  const hash = window.location.hash.replace('#','');
+  const valid = ['schedule','oilchange'];
+  if (valid.includes(hash)) showTab(hash);
+});
+
+// ── SMS TERMS ──
+function openSmsTerms(){const el=document.getElementById('smsTermsPage'); if(el){el.style.display='block'; window.scrollTo(0,0);}}
+function closeSmsTerms(){const el=document.getElementById('smsTermsPage'); if(el){el.style.display='none';}}
+
+
+</script>
+<!-- Official ElevenLabs Conversational AI Widget: single source of truth for all Henry CTAs -->
+<div class="official-henry-widget-subtitle">Click the microphone orb below to start — Henry is live 24/7.</div>
+</div>
+
+<script>
+
+function speakToHenry(){
+  _warmMic();
+  const zone = document.getElementById('henryVoiceWidgetAnchor') || document.getElementById('henryWidgetZone') || document.querySelector('.official-henry-widget') || document.querySelector('elevenlabs-convai');
+  if(zone){
+    zone.scrollIntoView({behavior:'smooth', block:'center'});
+    zone.classList.add('henry-widget-highlight');
+    setTimeout(()=>zone.classList.remove('henry-widget-highlight'), 2400);
+  }
+}
+function goToHenry(){ speakToHenry(); }
+function openHenry(){ speakToHenry(); }
+function openHENRY(){ speakToHenry(); }
+</script>
+
+
+<!-- ═══ HENRY WIDGET ZONE ═══ -->
+<div id="henryZone" style="background:#fff;border-top:3px solid #c8102e;border-bottom:3px solid #003478;padding:32px 20px;text-align:center;">
+  <div style="max-width:600px;margin:0 auto;">
+    <div style="display:inline-flex;align-items:center;gap:6px;background:#e8fff0;border:1px solid #4cde6e;color:#1a7a1a;border-radius:999px;padding:4px 13px;font-size:11px;font-weight:800;letter-spacing:.5px;margin-bottom:12px;">
+      <span style="width:7px;height:7px;background:#4cde6e;border-radius:50%;display:inline-block;animation:blink 1.2s infinite;"></span>&nbsp;Henry is live right now
+    </div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;color:#003478;text-transform:uppercase;margin-bottom:6px;">Talk to Henry — AI Voice Assistant</div>
+    <p style="font-size:13px;color:#555;margin-bottom:20px;line-height:1.6;">Click the microphone orb below. Tell Henry your vehicle, what service you need, and when you want to come in.</p>
+    <p style="font-size:13px;font-weight:700;color:#c8102e;margin-top:8px;">&#128071; Click the microphone orb in the bottom-right corner of your screen to start Henry</p>
+  </div>
+</div>
+
+<!-- EXACTLY the same pattern as the working mock site -->
+<script>
+function startElevenLabsCall(ev) {
+  if (ev) { ev.preventDefault(); ev.stopPropagation(); }
+
+  var widget = document.querySelector('elevenlabs-convai');
+  if (!widget) {
+    alert('Henry is still loading — please try again in a moment.');
+    return;
+  }
+
+  try {
+    widget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    widget.click();
+
+    if (widget.shadowRoot) {
+      var btn = widget.shadowRoot.querySelector('button, [role="button"], a, div[tabindex]');
+      if (btn) btn.click();
+    }
+
+    var cue = document.createElement('div');
+    cue.textContent = 'Tap the Henry voice widget to begin';
+    cue.style.cssText = 'position:fixed;left:50%;top:16px;transform:translateX(-50%);z-index:9000;background:#003478;color:#fff;padding:11px 20px;border-radius:10px;font-family:Barlow,Arial,sans-serif;font-weight:800;font-size:14px;box-shadow:0 6px 24px rgba(0,0,0,.28);white-space:nowrap;';
+    document.body.appendChild(cue);
+    setTimeout(function() { cue.remove(); }, 2600);
+  } catch(e) {
+    alert('Tap the Henry voice widget to start the call.');
+  }
+}
+</script>
+
+<!-- ElevenLabs widget embed — loaded once at the very bottom -->
+<elevenlabs-convai agent-id="agent_3801ks5w914ffr3aa091h95rj3tq"></elevenlabs-convai>
+<script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+</body>
+</html>
